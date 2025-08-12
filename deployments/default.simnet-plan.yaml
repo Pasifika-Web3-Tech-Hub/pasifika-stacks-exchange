@@ -48,6 +48,9 @@ genesis:
 plan:
   batches:
     - id: 0
+      transactions: []
+      epoch: "2.0"
+    - id: 1
       transactions:
         - emulated-contract-publish:
             contract-name: sip-010-trait-ft-standard
@@ -55,7 +58,7 @@ plan:
             path: "./.cache/requirements/SP3FBR2AGK5H9QBDH3EEN6DF8EK8JY7RX8QJ5SVTE.sip-010-trait-ft-standard.clar"
             clarity-version: 1
       epoch: "2.1"
-    - id: 1
+    - id: 2
       transactions:
         - emulated-contract-publish:
             contract-name: mock-token-2
@@ -63,7 +66,7 @@ plan:
             path: contracts/mock-token.clar
             clarity-version: 2
       epoch: "2.5"
-    - id: 2
+    - id: 3
       transactions:
         - emulated-contract-publish:
             contract-name: amm
