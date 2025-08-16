@@ -10,9 +10,9 @@ plan:
       transactions:
         - requirement-publish:
             contract-id: SP3FBR2AGK5H9QBDH3EEN6DF8EK8JY7RX8QJ5SVTE.sip-010-trait-ft-standard
-            remap-sender: ST3P49R8XXQWG69S66MZASYPTTGNDKK0WW32RRJDN
+            remap-sender: ST1KQ3KDWYE3B4WMY0WQ7SP7EYX0842PR64K3DBE2
             remap-principals:
-              SP3FBR2AGK5H9QBDH3EEN6DF8EK8JY7RX8QJ5SVTE: ST3P49R8XXQWG69S66MZASYPTTGNDKK0WW32RRJDN
+              SP3FBR2AGK5H9QBDH3EEN6DF8EK8JY7RX8QJ5SVTE: ST1KQ3KDWYE3B4WMY0WQ7SP7EYX0842PR64K3DBE2
             cost: 8400
             path: "./.cache/requirements/SP3FBR2AGK5H9QBDH3EEN6DF8EK8JY7RX8QJ5SVTE.sip-010-trait-ft-standard.clar"
             clarity-version: 1
@@ -21,7 +21,7 @@ plan:
       transactions:
         - contract-publish:
             contract-name: mock-token-2
-            expected-sender: ST3P49R8XXQWG69S66MZASYPTTGNDKK0WW32RRJDN
+            expected-sender: ST1KQ3KDWYE3B4WMY0WQ7SP7EYX0842PR64K3DBE2
             cost: 10410
             path: contracts/mock-token.clar
             anchor-block-only: true
@@ -31,16 +31,26 @@ plan:
       transactions:
         - contract-publish:
             contract-name: amm
-            expected-sender: ST3P49R8XXQWG69S66MZASYPTTGNDKK0WW32RRJDN
+            expected-sender: ST1KQ3KDWYE3B4WMY0WQ7SP7EYX0842PR64K3DBE2
             cost: 172800
             path: contracts/amm.clar
             anchor-block-only: true
             clarity-version: 3
         - contract-publish:
             contract-name: mock-token
-            expected-sender: ST3P49R8XXQWG69S66MZASYPTTGNDKK0WW32RRJDN
+            expected-sender: ST1KQ3KDWYE3B4WMY0WQ7SP7EYX0842PR64K3DBE2
             cost: 10410
             path: contracts/mock-token.clar
             anchor-block-only: true
             clarity-version: 3
       epoch: "3.0"
+    - id: 3
+      transactions:
+        - contract-publish:
+            contract-name: testnet-deployer
+            expected-sender: ST1KQ3KDWYE3B4WMY0WQ7SP7EYX0842PR64K3DBE2
+            cost: 2340
+            path: contracts/testnet-deployer.clar
+            anchor-block-only: true
+            clarity-version: 3
+      epoch: "3.2"

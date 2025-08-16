@@ -137,16 +137,35 @@ The project supports deployment to multiple networks:
 
 3. **Deploy to Testnet**
    ```bash
-   clarinet deployment generate --testnet
+   # Generate deployment plan with cost strategy
+   clarinet deployment generate --testnet --low-cost
+   
+   # Apply deployment to testnet
    clarinet deployment apply --testnet
    ```
+   
+   **Prerequisites for Testnet Deployment:**
+   - Create `settings/Testnet.toml` with your wallet configuration
+   - Ensure your testnet wallet has sufficient STX tokens
+   - Get testnet STX from faucets:
+     - [Stacks Explorer Faucet](https://explorer.stacks.co/sandbox/faucet?chain=testnet)
+     - [Hiro Explorer Faucet](https://explorer.hiro.so/sandbox/faucet?chain=testnet)
 
 ### Current Deployment Status
 
-**Successfully deployed on Stacks Testnet**
-- Contract Address: `ST3P49R8XXQWG69S66MZASYPTTGNDKK0WW32RRJDN.amm`
-- Network: Stacks Testnet
-- Status: Active and functional
+**Successfully deployed on Stacks Testnet** 
+
+**Contract Addresses:**
+- **AMM Contract**: `ST1KQ3KDWYE3B4WMY0WQ7SP7EYX0842PR64K3DBE2.amm`
+- **Mock Token**: `ST1KQ3KDWYE3B4WMY0WQ7SP7EYX0842PR64K3DBE2.mock-token`
+- **Mock Token 2**: `ST1KQ3KDWYE3B4WMY0WQ7SP7EYX0842PR64K3DBE2.mock-token-2`
+
+**Deployment Details:**
+- **Network**: Stacks Testnet
+- **Deployer Address**: `ST371ZDY8AP0B5H4F3RTWWSWGBAXS87YKTB34RPHZ`
+- **Status**: Active and fully functional
+- **Frontend Integration**: Contract addresses synchronized
+- **Last Updated**: August 16, 2025
 
 ## Configuration
 
@@ -224,26 +243,43 @@ Returns user's liquidity position in a specific pool.
 
 ## Frontend Integration
 
-### Contract Address Sync
+### Contract Address Synchronization
 
-The backend includes a script to sync contract addresses with the frontend:
+After successful deployment, contract addresses are automatically synchronized with the frontend:
 
 ```bash
 # Run from frontend directory
 node scripts/save-contract-addresses.js
 ```
 
-This script:
-- Reads deployment information from `deployments/`
-- Generates contract address files in frontend `deployed_contracts/`
-- Creates TypeScript definitions for type-safe contract interactions
+**Generated Files:**
+- `deployed_contracts/contract-addresses.json` - Contract metadata and addresses
+- `deployed_contracts/contract-addresses.ts` - TypeScript definitions with helper functions
+- `deployed_contracts/deployment-summary.json` - Deployment summary and statistics
 
-### Frontend Connection
+**Features:**
+- Automatic contract discovery from deployment plans
+- Type-safe contract address access
+- Network-aware contract resolution
+- Helper functions for contract principal generation
 
-The AMM integrates with the Pasifika Web3 frontend at:
-- **Frontend Path**: `/app/stacks-exchange/`
-- **Live Demo**: Available through Proof of Concepts page
-- **Wallet Integration**: Stacks Connect for transaction signing
+### Frontend Integration
+
+The AMM is fully integrated with the Pasifika Web3 frontend:
+
+**Integration Details:**
+- **Frontend Repository**: `pasifika-web3-fe`
+- **Contract Files**: Auto-generated in `deployed_contracts/`
+- **Development Server**: `http://localhost:3000`
+- **Wallet Integration**: Stacks Connect (Hiro Wallet, Xverse)
+- **Network**: Configured for Stacks Testnet
+
+**Testing the Integration:**
+```bash
+# Start frontend development server
+cd ../pasifika-web3-fe
+npm run dev
+```
 
 ## Security Considerations
 
@@ -304,7 +340,8 @@ pasifika-stacks-exchange/
 │   ├── default.devnet-plan.yaml    # Devnet deployment
 │   └── default.testnet-plan.yaml   # Testnet deployment
 ├── settings/
-│   └── Devnet.toml           # Network settings
+│   ├── Devnet.toml           # Devnet configuration
+│   └── Testnet.toml          # Testnet configuration (gitignored)
 ├── Clarinet.toml             # Project configuration
 ├── package.json              # Node.js dependencies
 ├── tsconfig.json             # TypeScript configuration
@@ -356,7 +393,17 @@ A: Run `clarinet check` to verify contract syntax first.
 A: Ensure you have sufficient STX tokens for deployment fees.
 
 **Q: Frontend can't connect to contracts**
-A: Run the contract address sync script from the frontend directory.
+A: Run the contract address sync script from the frontend directory:
+```bash
+cd ../pasifika-web3-fe
+node scripts/save-contract-addresses.js
+```
+
+**Q: Deployment plan has wrong wallet address**
+A: Regenerate the deployment plan with the correct cost strategy:
+```bash
+clarinet deployment generate --testnet --low-cost
+```
 
 
 
